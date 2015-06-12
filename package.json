@@ -1,0 +1,26 @@
+{
+  "name": "@dominykas/vilniusjs-20150618-errors",
+  "version": "1.0.0",
+  "description": "The sorry state of Javascript error handling",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node node_modules/reveal.js/plugin/notes-server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dominykas/vilniusjs-20150618-errors.git"
+  },
+  "keywords": [
+    "talk"
+  ],
+  "author": "Dominykas Blyžė <hello@dominykas.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dominykas/vilniusjs-20150618-errors/issues"
+  },
+  "homepage": "https://github.com/dominykas/vilniusjs-20150618-errors#readme",
+  "dependencies": {
+    "reveal.js": "^3.1.0"
+  }
+}
