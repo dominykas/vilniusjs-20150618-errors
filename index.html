@@ -51,11 +51,106 @@
 				</section>
 
 				<section>
-					<pre>> throw Table
+					<section>
+						<pre>&gt; throw Table
 ノಠ益ಠノ彡┻━┻
-></pre>
-					<h2 class="fragment">Throw all the things!</h2>
-					<p class="fragment">But then what?</p>
+&gt;</pre>
+						<h2>Throw all the things!</h2>
+						<p>But then what?</p>
+						<aside class="notes">
+							survey: who is logging to server? who is building for 3rd party sites? who has 3rd party snippets?
+						</aside>
+					</section>
+
+					<section>
+						<p>todo: find numbers (what was the talk?...) on error handling bugs</p>
+					</section>
+
+					<section>
+						<h2>Javascript is 20. Ready for production.</h2>
+						<blockquote>
+							<p>Seriously, browse the web with the developer tools console open logging errors and be truly amazed that the internet ever worked.</p>
+							<footer>
+								<cite><a href="https://twitter.com/shanselman/status/606515834954096640">@shanselman</a></cite>
+							</footer>
+						</blockquote>
+					</section>
+
+					<section>
+						<h2>Error handling in normal world</h2>
+						<ol>
+							<li>Be aware of errors</li>
+							<li>Provide detailed error information</li>
+							<li>Add error handling code</li>
+						</ol>
+					</section>
+
+					<section>
+						<h2>Problems with JS errors</h2>
+						<ol>
+							<li>Hard to throw</li>
+							<li>Hard to catch</li>
+							<li>Hard to log</li>
+						</ol>
+						<p>Hard to bloody figure if it's even your fault</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Logging from the browser</h1>
+						<aside class="notes">node has it easy</aside>
+					</section>
+					<section>
+						<h2>todo</h2>
+						<ul>
+							<li>poor man's choice: onerror to analytics - we did it, we failed to look at it, there was a spike, shit was broken, so we changed over to XHR, CORS</li>
+							<li>can't onerror on a third party site - might not be your errors... and you won't know it, because of cross domain... or run everything in an iframe</li>
+							<li>http://blog.meldium.com/home/2013/9/30/so-youre-thinking-of-tracking-your-js-errors - "In a year or two, browsers will have better onerror support" from two years ago --- heh</li>
+							<li>must pass version number - some shit gets cached for aaaages; must use a refresh script - specific to IW - we need some scripts at canonical URLs</li>
+							<li>Anything can be thrown, so how do you serialize it?</li>
+							<li>https://github.com/occ/TraceKit</li>
+							<li>sourcemaps?</li>
+							<li>logging: params vs message (for filtering - but maybe it's the job of your logging system? e.g. "File exists: %s")</li>
+							<li>csp reporting</li>
+
+							<li>xhr wtfs - xhr fails, but log goes through. for no good reason.</li>
+							<li>odd postMessage stuff</li>
+							<li>getBoundingRect, etc properties disappear</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Catching errors</h1>
+					</section>
+					<section>
+						<h2>todo</h2>
+						<ul>
+							<li>For example, Angular has $exceptionHandler and Ember has a real onerror function.</li>
+							<li>React's replay</li>
+							<li>async / promise stack traces</li>
+							<li>Use promises for everything - wrappers gently handle everything, and emit an unhandledPromise at some point; However, UI needs to have sync bits for repaint...</li>
+							<li>can't just restart - that would mean an infinite loop for an infinite number of people without you even knowing (vs PHP is meant to die)</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Throwing errors</h1>
+					</section>
+					<section>
+						<h2>todo</h2>
+						<ul>
+							<li>throw/catch to detect where the script is coming from</li>
+							<li>Errors which aren't thrown, don't have stack (in some browsers)</li>
+							<li>Test codes</li>
+							<li>Own error classes / ineritance</li>
+							<li>Always new instance?</li>
+						</ul>
+					</section>
 				</section>
 
 			</div>
