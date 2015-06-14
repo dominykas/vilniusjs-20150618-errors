@@ -77,22 +77,61 @@
 					</section>
 
 					<section>
-						<h2>Error handling in normal world</h2>
+						<h2>Pro-Tip</h2>
+						<p>Make sure stuff works without JS:</p>
+						<ul>
+							<li>Use real <code>&lt;a href></code> with real URLs</li>
+							<li>Use real forms with real buttons</li>
+							<li><code>preventDefault()</code> as a <em>last</em> thing</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Error handling in the normal world</h2>
 						<ol>
-							<li>Be aware of errors</li>
+							<li>Stay aware of errors</li>
 							<li>Provide detailed error information</li>
-							<li>Add error handling code</li>
+							<li>Add exception handling code</li>
+							<li>If all else fails - crash with a dump</li>
 						</ol>
 					</section>
 
 					<section>
-						<h2>Problems with JS errors</h2>
-						<ol>
-							<li>Hard to throw</li>
-							<li>Hard to catch</li>
-							<li>Hard to log</li>
-						</ol>
-						<p>Hard to bloody figure if it's even your fault</p>
+						<h2>In the browser world...</h2>
+						<ul>
+							<li>Old browsers</li>
+							<li>3rd party scripts</li>
+							<li>Browser extensions</li>
+							<li>Cross-domain restrictions</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>In the browser world...</h2>
+						<ul>
+							<li><code>throw new Error</code> vs <code>throw Error</code></li>
+							<li>Errors in async functions</li>
+							<li>Errors in callbacks</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>In the browser world...</h2>
+						<ul>
+							<li>Network errors</li>
+							<li>Aggressive caching</li>
+							<li>Random obscure 💩</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Random obscure 💩</h2>
+						<ul>
+							<li>XHR randomly status 0 (but error logged CORS XHR)</li>
+							<li><code>&lt;iframe id="localStorage" /></code></li>
+							<li><code>localStorage</code> max size is 0 in private mode on iOS</li>
+							<li><code>getComputedStyle</code> stops being a function...</li>
+						</ul>
 					</section>
 				</section>
 
@@ -105,12 +144,9 @@
 						<h2>todo</h2>
 						<ul>
 							<li>poor man's choice: onerror to analytics - we did it, we failed to look at it, there was a spike, shit was broken, so we changed over to XHR, CORS</li>
-							<li>can't onerror on a third party site - might not be your errors... and you won't know it, because of cross domain... or run everything in an iframe</li>
 							<li>http://blog.meldium.com/home/2013/9/30/so-youre-thinking-of-tracking-your-js-errors - "In a year or two, browsers will have better onerror support" from two years ago --- heh</li>
 							<li>must pass version number - some shit gets cached for aaaages; must use a refresh script - specific to IW - we need some scripts at canonical URLs</li>
 							<li>Anything can be thrown, so how do you serialize it?</li>
-							<li>https://github.com/occ/TraceKit</li>
-							<li>sourcemaps?</li>
 							<li>logging: params vs message (for filtering - but maybe it's the job of your logging system? e.g. "File exists: %s")</li>
 							<li>csp reporting</li>
 
@@ -128,11 +164,23 @@
 					<section>
 						<h2>todo</h2>
 						<ul>
+							<li>try/catch is for sync stuff only</li>
+							<li>try/catch deoptimizes...</li>
+							<li>Problems with onerror - https://danlimerick.wordpress.com/2014/01/18/how-to-catch-javascript-errors-with-window-onerror-even-on-chrome-and-firefox/</li>
+							<li>http://blog.errorception.com/2011/12/call-stacks-in-ie.html</li>
+							<li>https://github.com/thlorenz/stack-mapper</li>
+							<li>https://github.com/mozilla/source-map/</li>
+							<li>https://github.com/occ/TraceKit</li>
+							<li>https://errorception.com/slides/jsfoo#landing-slide</li>
+							<li>https://bugsnag.com/blog/js-stacktraces/</li>
+							<li>http://ryanmorr.com/reinventing-the-try-catch-block/</li>
+							<li>can't onerror on a third party site - might not be your errors... and you won't know it, because of cross domain... or run everything in an iframe</li>
 							<li>For example, Angular has $exceptionHandler and Ember has a real onerror function.</li>
 							<li>React's replay</li>
 							<li>async / promise stack traces</li>
 							<li>Use promises for everything - wrappers gently handle everything, and emit an unhandledPromise at some point; However, UI needs to have sync bits for repaint...</li>
 							<li>can't just restart - that would mean an infinite loop for an infinite number of people without you even knowing (vs PHP is meant to die)</li>
+							<li>Problems before onload?</li>
 						</ul>
 					</section>
 				</section>
@@ -149,6 +197,16 @@
 							<li>Test codes</li>
 							<li>Own error classes / ineritance</li>
 							<li>Always new instance?</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>todo</h2>
+						<ul>
+							<li>Rollbar</li>
+							<li>Errorception</li>
 						</ul>
 					</section>
 				</section>
