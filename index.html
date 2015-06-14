@@ -52,9 +52,11 @@
 
 				<section>
 					<section>
-						<pre>&gt; throw Table
+						<pre><code data-trim>
+&gt; throw Table
 ノಠ益ಠノ彡┻━┻
-&gt;</pre>
+&gt;
+</code></pre>
 						<h2>Throw all the things!</h2>
 						<p>But then what?</p>
 						<aside class="notes">
@@ -141,9 +143,20 @@
 						<aside class="notes">node has it easy</aside>
 					</section>
 					<section>
+						<h2>Do this tomorrow</h2>
+						<p>If you're not doing it yet</p>
+						<pre><code data-trim class="lang-js">
+window.onerror = function (err, url, line) {
+	ga('send', 'exception', {
+		'exDescription': line + " " + err
+	});
+};
+</code></pre>
+						<aside class="notes">We did it, we failed to look at it, there was a spike, shit was broken, so we changed over to XHR, CORS</aside>
+					</section>
+					<section>
 						<h2>todo</h2>
 						<ul>
-							<li>poor man's choice: onerror to analytics - we did it, we failed to look at it, there was a spike, shit was broken, so we changed over to XHR, CORS</li>
 							<li>http://blog.meldium.com/home/2013/9/30/so-youre-thinking-of-tracking-your-js-errors - "In a year or two, browsers will have better onerror support" from two years ago --- heh</li>
 							<li>must pass version number - some shit gets cached for aaaages; must use a refresh script - specific to IW - we need some scripts at canonical URLs</li>
 							<li>Anything can be thrown, so how do you serialize it?</li>
@@ -153,6 +166,13 @@
 							<li>xhr wtfs - xhr fails, but log goes through. for no good reason.</li>
 							<li>odd postMessage stuff</li>
 							<li>getBoundingRect, etc properties disappear</li>
+						</ul>
+					</section>
+					<section>
+						<h2>todo</h2>
+						<ul>
+							<li>Rollbar</li>
+							<li>Errorception</li>
 						</ul>
 					</section>
 				</section>
@@ -197,16 +217,6 @@
 							<li>Test codes</li>
 							<li>Own error classes / ineritance</li>
 							<li>Always new instance?</li>
-						</ul>
-					</section>
-				</section>
-
-				<section>
-					<section>
-						<h2>todo</h2>
-						<ul>
-							<li>Rollbar</li>
-							<li>Errorception</li>
 						</ul>
 					</section>
 				</section>
