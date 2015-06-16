@@ -155,8 +155,8 @@
 				<section>
 					<section>
 						<h1>Logging from the browser</h1>
-						<aside class="notes">node has it easy</aside>
 					</section>
+
 					<section>
 						<h2>Do this tomorrow</h2>
 						<p>If you're not doing it yet</p>
@@ -167,8 +167,8 @@ window.onerror = function (err, url, line) {
 	});
 };
 						</code></pre>
-						<aside class="notes">We did it, we failed to look at it, there was a spike, shit was broken, so we changed over to XHR, CORS</aside>
 					</section>
+
 					<section>
 						<h2>Do this next week</h2>
 						<ul>
@@ -178,6 +178,7 @@ window.onerror = function (err, url, line) {
 							<li>Don't include "data" inside the "message", i.e. <code>log(messageString, objData);</code></li>
 						</ul>
 					</section>
+
 					<section>
 						<h2>Pay attention</h2>
 						<p>Anything can be thrown - must be able to serialize correctly.</p>
@@ -191,6 +192,7 @@ TypeError: Cannot read property 'toString' of null
 'Damn it'
 						</code></pre>
 					</section>
+
 					<section>
 						<h2>Try</h2>
 						<p>At the very least they have useful blogs.</p>
@@ -199,6 +201,7 @@ TypeError: Cannot read property 'toString' of null
 							<li>Errorception</li>
 						</ul>
 					</section>
+
 					<section>
 						<h2>Dream</h2>
 						<pre><code>Content-Security-Policy: style-src cdn.example.com; report-uri /_/csp-reports</code></pre>
@@ -210,26 +213,78 @@ TypeError: Cannot read property 'toString' of null
 					<section>
 						<h1>Catching errors</h1>
 					</section>
+
 					<section>
-						<h2>todo</h2>
+						<h2>try/catch</h2>
 						<ul>
-							<li>try/catch is for sync stuff only</li>
-							<li>try/catch deoptimizes...</li>
-							<li>Problems with onerror - https://danlimerick.wordpress.com/2014/01/18/how-to-catch-javascript-errors-with-window-onerror-even-on-chrome-and-firefox/</li>
-							<li>http://blog.errorception.com/2011/12/call-stacks-in-ie.html</li>
-							<li>https://github.com/thlorenz/stack-mapper</li>
-							<li>https://github.com/mozilla/source-map/</li>
-							<li>https://github.com/occ/TraceKit</li>
-							<li>https://errorception.com/slides/jsfoo#landing-slide</li>
-							<li>https://bugsnag.com/blog/js-stacktraces/</li>
-							<li>http://ryanmorr.com/reinventing-the-try-catch-block/</li>
-							<li>can't onerror on a third party site - might not be your errors... and you won't know it, because of cross domain... or run everything in an iframe</li>
-							<li>For example, Angular has $exceptionHandler and Ember has a real onerror function.</li>
-							<li>React's replay</li>
-							<li>async / promise stack traces</li>
-							<li>Use promises for everything - wrappers gently handle everything, and emit an unhandledPromise at some point; However, UI needs to have sync bits for repaint...</li>
-							<li>can't just restart - that would mean an infinite loop for an infinite number of people without you even knowing (vs PHP is meant to die)</li>
-							<li>Problems before onload?</li>
+							<li>Ugly</li>
+							<li>Sync</li>
+							<li>Deoptimizes</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>guard()</h2>
+						<pre><code data-trim class="lang-js">
+function guard (fn) {
+	return function () {
+		try {
+			return fn.apply(this, arguments);
+		} catch (err) {
+			logError(err);
+			throw err;
+		}
+	};
+}
+						</code></pre>
+						<p>Auto-wrapping is probably a bad idea.</p>
+					</section>
+
+					<section>
+						<h2>Use promises</h2>
+						<ul>
+							<li>Wrap promise construction</li>
+							<li>Reject with <code>new Error()</code></li>
+							<li>Don't forget to <code>.catch(logError)</code></li>
+							<li>Stack traces an issue (unless native)</li>
+							<li>New: <code>unhandledRejection</code></li>
+							<li>Problem: UI can't have a break in event loop</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>window.onerror</h2>
+						<ul>
+							<li><code>msg</code> is different on every browser</li>
+							<li><code>url</code> has cross-domain restrictions</li>
+							<li><code>lineno</code> is 1, because you minified</li>
+							<li><code>colno</code> is fairly recent</li>
+							<li><code>errorObj</code> is very recent</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Meanwhile at W3C...</h2>
+						<img src="content/286920.jpg"/>
+					</section>
+
+					<section>
+						<h2>window.onerror</h2>
+						<ul>
+							<li>Not the same as <code>addEventListener('error')</code></li>
+							<li>TraceKit for stacks, if you can afford it</li>
+							<li>todo - Add CORS headers (if you can)</li>
+							<li>todo - Run your code in an iframe (Disqus approach)</li>
+							<li>todo - source maps</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Embulact - todo</h2>
+						<ul>
+							<li><code>$exceptionHandler</code></li>
+							<li><code>onerror</code></li>
+							<li>Replay events</li>
 						</ul>
 					</section>
 				</section>
@@ -238,6 +293,7 @@ TypeError: Cannot read property 'toString' of null
 					<section>
 						<h1>Throwing errors</h1>
 					</section>
+
 					<section>
 						<h2>todo</h2>
 						<ul>
