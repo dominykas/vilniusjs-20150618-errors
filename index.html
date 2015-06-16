@@ -29,6 +29,13 @@
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
+
+		<style>
+			.reveal blockquote footer {
+				font-size: 60%;
+				line-height: 1.25;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -65,15 +72,21 @@
 					</section>
 
 					<section>
-						<p>todo: find numbers (what was the talk?...) on error handling bugs</p>
-					</section>
-
-					<section>
 						<h2>Javascript is 20. Ready for production.</h2>
 						<blockquote>
 							<p>Seriously, browse the web with the developer tools console open logging errors and be truly amazed that the internet ever worked.</p>
 							<footer>
 								<cite><a href="https://twitter.com/shanselman/status/606515834954096640">@shanselman</a></cite>
+							</footer>
+						</blockquote>
+					</section>
+
+					<section>
+						<h2>Handle all the things?</h2>
+						<blockquote>
+							<p>92% of catastrophic failures are the result of incorrect error handling</p>
+							<footer>
+								<cite>Simple Testing Can Prevent Most Critical Failures by Ding Yuan et al, <a href="http://dominykas.net/24">dominykas.net/24</a></cite>
 							</footer>
 						</blockquote>
 					</section>
@@ -111,9 +124,10 @@
 					<section>
 						<h2>In the browser world...</h2>
 						<ul>
-							<li><code>throw new Error</code> vs <code>throw Error</code></li>
+							<li><code>throw new Error</code> vs <code>throw old_Table</code></li>
 							<li>Errors in async functions</li>
 							<li>Errors in callbacks</li>
+							<li>Zalgo</li>
 						</ul>
 					</section>
 
@@ -133,6 +147,7 @@
 							<li><code>&lt;iframe id="localStorage" /></code></li>
 							<li><code>localStorage</code> max size is 0 in private mode on iOS</li>
 							<li><code>getComputedStyle</code> stops being a function...</li>
+							<li>Random <code>message</code> events from plugins</li>
 						</ul>
 					</section>
 				</section>
@@ -151,29 +166,43 @@ window.onerror = function (err, url, line) {
 		'exDescription': line + " " + err
 	});
 };
-</code></pre>
+						</code></pre>
 						<aside class="notes">We did it, we failed to look at it, there was a spike, shit was broken, so we changed over to XHR, CORS</aside>
 					</section>
 					<section>
-						<h2>todo</h2>
+						<h2>Do this next week</h2>
 						<ul>
-							<li>http://blog.meldium.com/home/2013/9/30/so-youre-thinking-of-tracking-your-js-errors - "In a year or two, browsers will have better onerror support" from two years ago --- heh</li>
-							<li>must pass version number - some shit gets cached for aaaages; must use a refresh script - specific to IW - we need some scripts at canonical URLs</li>
-							<li>Anything can be thrown, so how do you serialize it?</li>
-							<li>logging: params vs message (for filtering - but maybe it's the job of your logging system? e.g. "File exists: %s")</li>
-							<li>csp reporting</li>
-
-							<li>xhr wtfs - xhr fails, but log goes through. for no good reason.</li>
-							<li>odd postMessage stuff</li>
-							<li>getBoundingRect, etc properties disappear</li>
+							<li>Set up a proper logging endpoint</li>
+							<li>Version your releases and pass on the version</li>
+							<li>Make sure versions match across different bundles</li>
+							<li>Stick to <code>log(messageString, objData);</code> - don't include "data" inside the "message"</li>
 						</ul>
 					</section>
 					<section>
-						<h2>todo</h2>
+						<h2>Pay attention</h2>
+						<p>Anything can be thrown - must be able to serialize correctly.</p>
+						<pre><code class="lang-js">var logMessage = err && err.message ? err.message : "" + err;</code></pre>
+						<pre><code data-trim>
+&gt; new Error("Damn it").toString()
+'Error: Damn it'
+&gt; new Error("Damn it").message
+'Damn it'
+&gt; null.toString()
+TypeError: Cannot read property 'toString' of null
+						</code></pre>
+					</section>
+					<section>
+						<h2>Try</h2>
+						<p>At the very least they have useful blogs.</p>
 						<ul>
 							<li>Rollbar</li>
 							<li>Errorception</li>
 						</ul>
+					</section>
+					<section>
+						<h2>Dream</h2>
+						<pre><code>Content-Security-Policy: style-src cdn.example.com; report-uri /_/csp-reports</code></pre>
+						<img src="content/285750.jpg" />
 					</section>
 				</section>
 
