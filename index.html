@@ -256,6 +256,7 @@ function guard (fn) {
 						<h2>window.onerror</h2>
 						<ul>
 							<li><code>msg</code> is different on every browser</li>
+							<li>Yay! <em>Uncaught Error: undefined is not an object</em></li>
 							<li><code>url</code> has cross-domain restrictions</li>
 							<li><code>lineno</code> is 1, because you minified</li>
 							<li><code>colno</code> is fairly recent</li>
@@ -295,15 +296,40 @@ function guard (fn) {
 					</section>
 
 					<section>
-						<h2>todo</h2>
+						<h2><em>throw</em> errors</h2>
+						<p>If you don't throw, it won't have a stack (in some browsers)</p>
+					</section>
+
+					<section>
+						<h2>throw <em>errors</em></h2>
 						<ul>
-							<li>throw/catch to detect where the script is coming from</li>
-							<li>Errors which aren't thrown, don't have stack (in some browsers)</li>
-							<li>Test codes</li>
-							<li>Own error classes / ineritance</li>
-							<li>Always new instance?</li>
+							<li>If it's not an error, it won't have a stack</li>
+							<li>This applies to <code>nodeback(err, data)</code></li>
+							<li><code>Object.create(Error)</code> is not an error</li>
 						</ul>
 					</section>
+
+					<section>
+						<h2>Use error codes</h2>
+						<pre><code data-trim class="lang-js">
+var error = new Error("snap...");
+error.code = "E_SNAP";
+throw error;
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>throw custom errors</h2>
+						<p>todo</p>
+					</section>
+
+				</section>
+
+				<section>
+					<h2><code>&lt;/<span style="font-size:30%;display:inline-block;vertical-align:middle;">ノಠ益ಠノ彡┻━┻</span>&gt;</code></h2>
+					<p>Slides: <a href="http://dominykas.net/25">dominykas.net/25</a></p>
+					<p><small><a href="https://twitter.com/dymonaz">@dymonaz</a></small></p>
+					<p>;</p>
 				</section>
 
 			</div>
