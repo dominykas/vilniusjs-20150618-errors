@@ -175,7 +175,7 @@ window.onerror = function (err, url, line) {
 							<li>Set up a proper logging endpoint</li>
 							<li>Version your releases and pass on the version</li>
 							<li>Make sure versions match across different bundles</li>
-							<li>Stick to <code>log(messageString, objData);</code> - don't include "data" inside the "message"</li>
+							<li>Don't include "data" inside the "message", i.e. <code>log(messageString, objData);</code></li>
 						</ul>
 					</section>
 					<section>
@@ -183,12 +183,12 @@ window.onerror = function (err, url, line) {
 						<p>Anything can be thrown - must be able to serialize correctly.</p>
 						<pre><code class="lang-js">var logMessage = err && err.message ? err.message : "" + err;</code></pre>
 						<pre><code data-trim>
+&gt; null.toString()
+TypeError: Cannot read property 'toString' of null
 &gt; new Error("Damn it").toString()
 'Error: Damn it'
 &gt; new Error("Damn it").message
 'Damn it'
-&gt; null.toString()
-TypeError: Cannot read property 'toString' of null
 						</code></pre>
 					</section>
 					<section>
