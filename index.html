@@ -237,7 +237,7 @@ function guard (fn) {
 	};
 }
 						</code></pre>
-						<p>Auto-wrapping is probably a bad idea.</p>
+						<p>Using this for auto-wrapping is probably a bad idea.</p>
 					</section>
 
 					<section>
@@ -245,7 +245,7 @@ function guard (fn) {
 						<ul>
 							<li>Wrap promise construction</li>
 							<li>Reject with <code>new Error()</code></li>
-							<li>Don't forget to <code>.catch(logError)</code></li>
+							<li>Don't forget to <code>.catch(logAndRethrow)</code></li>
 							<li>Stack traces an issue (unless native)</li>
 							<li>New: <code>unhandledRejection</code></li>
 							<li>Problem: UI can't have a break in event loop</li>
