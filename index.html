@@ -219,8 +219,9 @@ TypeError: Cannot read property 'toString' of null
 						<ul>
 							<li>Ugly</li>
 							<li>Sync</li>
-							<li>Deoptimizes</li>
+							<li>Deoptimizes *</li>
 						</ul>
+						<p><small>* no big deal most of the time, but still</small></p>
 					</section>
 
 					<section>
@@ -274,10 +275,66 @@ function guard (fn) {
 						<ul>
 							<li>Not the same as <code>addEventListener('error')</code></li>
 							<li>TraceKit for stacks, if you can afford it</li>
-							<li>todo - Add CORS headers (if you can)</li>
-							<li>todo - Run your code in an iframe (Disqus approach)</li>
-							<li>todo - source maps</li>
+							<li>Run your code in an iframe, if on a third party site</li>
+							<li><code>return true</code> if handled</li>
 						</ul>
+					</section>
+
+					<section>
+						<h2>window.onerror - CORS</h2>
+						<ol>
+							<li><code style="white-space: nowrap">Access-Control-Allow-Origin: *</code></li>
+							<li><code style="white-space: nowrap">&lt;script crossorigin="anonymous"&gt;</code></li>
+						</ol>
+					</section>
+
+					<section>
+						<h2>window.onerror - CORS</h2>
+						<ul>
+							<li>The script can inject itself with the attribute set</li>
+							<li><code>setAttribute("crossorigin")</code>, not <code>script.crossorigin</code></li>
+						</ul>
+						<pre><code class="lang-js" data-trim="">
+if (!document.currentScript.getAttribute("crossorigin")) {
+	var script = document.createElement("script");
+	script.src = document.currentScript.src;
+	script.setAttribute("crossorigin", "anonymous");
+	document.head.appendChild(script);
+} else {
+
+	/* proceed */
+
+}
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Source maps</h2>
+						<pre><code data-trim class="lang-sh">
+browserify \
+	-e bundle/entry.js \
+	-t uglifyify \
+	-d | exorcist bundle.js.map > bundle.js
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Source maps</h2>
+						<pre><code data-trim class="lang-js">
+var SourceMapConsumer = require("source-map").SourceMapConsumer;
+var map = JSON.parse(fs.readFileSync("bundle.js.map"));
+var smc = new SourceMapConsumer(map);
+console.log(smc.originalPositionFor({ line: 5, column: 33 }));
+						</code></pre>
+						<h3>Output</h3>
+						<pre><code data-trim class="lang-js">
+{
+	source: '~/bundle/stuff.js',
+	line: 2,
+	column: 7,
+	name: null
+}
+						</code></pre>
 					</section>
 
 					<section>
