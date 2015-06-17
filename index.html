@@ -329,16 +329,16 @@ console.log(smc.originalPositionFor({ line: 5, column: 33 }));
 						<h3>Output</h3>
 						<pre><code data-trim class="lang-js">
 {
-	source: '~/bundle/stuff.js',
-	line: 2,
-	column: 7,
-	name: null
+source: '~/bundle/stuff.js',
+line: 2,
+column: 7,
+name: null
 }
 						</code></pre>
 					</section>
 
 					<section>
-						<h2>Embulact - todo</h2>
+						<h2>Embulact</h2>
 						<ul>
 							<li><code>$exceptionHandler</code></li>
 							<li><code>onerror</code></li>
@@ -354,7 +354,7 @@ console.log(smc.originalPositionFor({ line: 5, column: 33 }));
 
 					<section>
 						<h2><em>throw</em> errors</h2>
-						<p>If you don't throw, it won't have a stack (in some browsers)</p>
+						<p>If you don't throw, it won't have a stack in IE</p>
 					</section>
 
 					<section>
@@ -377,7 +377,57 @@ throw error;
 
 					<section>
 						<h2>throw custom errors</h2>
-						<p>todo</p>
+						<img src="content/AdiBPrO.jpg"/>
+						<p>I don't want to talk about it...</p>
+					</section>
+
+					<section>
+						<h2>throw custom errors</h2>
+						<p><code>MyCustomError</code> should:</p>
+						<ul>
+							<li>Keep <code>message</code> as a first param</li>
+							<li>Have a <code>message</code> property</li>
+							<li>Have a <code>name="MyCustomError"</code> property</li>
+							<li>Extend <code>Error</code> (i.e. support <code>instanceof</code>)</li>
+							<li>Work with and without <code>new</code></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Add useful info</h2>
+						<p>Good custom errors also should:</p>
+						<ul>
+							<li>Have a reasonable <code>toString</code></li>
+							<li>Be able to wrap around existing errors</li>
+							<li>Have a stack trace</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Poor man's <code>stacktrace-js</code></h2>
+						<pre><code data-trim class="lang-js">
+function CustomError(message) {
+	var temp = Error.call(this, message);
+	temp.name = this.name = 'CustomError';
+	try {
+		throw temp;
+	} catch (afterThrow) {
+		this.stack = afterThrow.stack;
+	}
+	this.message = temp.message;
+}
+CustomError.prototype = Object.create(Error.prototype);
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Number of boring <code>stack</code> lines</h2>
+						<ul>
+							<li>In Blink: name/message + 2</li>
+							<li>In Webkit: 1</li>
+							<li>In Firefox: 1</li>
+							<li>In IE: name/message + 1</li>
+						</ul>
 					</section>
 
 				</section>
@@ -385,6 +435,7 @@ throw error;
 				<section>
 					<h2><code>&lt;/<span style="font-size:30%;display:inline-block;vertical-align:middle;">ノಠ益ಠノ彡┻━┻</span>&gt;</code></h2>
 					<p>Slides: <a href="http://dominykas.net/25">dominykas.net/25</a></p>
+					<p>We're hiring: <a href="http://inwh.se/win">inwh.se/win</a></p>
 					<p><small><a href="https://twitter.com/dymonaz">@dymonaz</a></small></p>
 					<p>;</p>
 				</section>
