@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/dominykas/vilniusjs-20150618-errors#readme",
   "dependencies": {
-    "reveal.js": "^3.1.0"
+    "reveal.js": "^3.1.0",
+    "throatable": "^1.0.0"
   },
   "devDependencies": {
     "browserify": "^10.2.4",

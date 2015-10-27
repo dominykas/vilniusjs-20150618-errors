@@ -61,7 +61,7 @@
 				<section>
 					<h1>The sorry state of Javascript error handling</h1>
 					<p>
-						<small>By <a href="http://www.dominykas.com">Dominykas Blyžė</a> (<a href="https://twitter.com/dymonaz">@dymonaz</a>), 2015-06-18</small>
+						<small>By <a href="http://www.dominykas.com">Dominykas Blyžė</a> (<a href="https://twitter.com/dymonaz">@dymonaz</a>), 2015-10-28</small>
 					</p>
 				</section>
 
@@ -72,9 +72,8 @@
 				<section>
 					<section>
 						<pre><code data-trim>
-&gt; throw Table
-ノಠ益ಠノ彡┻━┻
-&gt;
+var Table = require("throatable");
+throw Table;
 </code></pre>
 						<h2>Throw all the things!</h2>
 						<p>But then what?</p>
@@ -162,6 +161,16 @@
 							<li>Random <code>message</code> events from plugins</li>
 						</ul>
 					</section>
+
+					<section>
+						<h2>Randomer obscurer 💩</h2>
+						<p><code>document.createElement is not a function</code></p>
+					</section>
+
+					<section>
+						<h2>Randomest obscurest 💩</h2>
+						<p><code>Function.prototype.apply was called on function (){ /* snip */ }, which is a function and not a function</code></p>
+					</section>
 				</section>
 
 				<section>
@@ -211,6 +220,7 @@ TypeError: Cannot read property 'toString' of null
 						<ul>
 							<li>Rollbar</li>
 							<li>Errorception</li>
+							<li>TrackJS</li>
 						</ul>
 					</section>
 
@@ -278,8 +288,11 @@ function guard (fn) {
 					</section>
 
 					<section>
-						<h2>Meanwhile at W3C...</h2>
-						<img src="content/286920.jpg"/>
+						<h2>Meanwhile at in unnamed browser vendor HQ...</h2>
+						<blockquote><p>People are adding too much shit to their HTML, so let's, like, invent
+							something other, something Accelerated, like for Mobile and Pages, like, which is
+							like HTML, but really not HTML, and they won't add shit there and then
+							it will be, like, very accelerated and mobile and pages stuff.</p></blockquote>
 					</section>
 
 					<section>
